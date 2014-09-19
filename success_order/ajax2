@@ -1,0 +1,22 @@
+//QUERY PARAM
+execution=e1s2
+
+//HEADER
+POST /AU/en_AU/reserve/iPhone?execution=e1s2 HTTP/1.1
+Host: reserve-au.apple.com
+Connection: keep-alive
+Content-Length: 175
+Pragma: no-cache
+Cache-Control: no-cache
+Accept: application/json, text/javascript, */*; q=0.01
+Origin: https://reserve-au.apple.com
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Referer: https://reserve-au.apple.com/AU/en_AU/reserve/iPhone?execution=e1s2
+Accept-Encoding: gzip,deflate
+Accept-Language: en-US,en;q=0.8,zh-TW;q=0.6,zh;q=0.4,zh-CN;q=0.2
+Cookie: IURRT=654b25a4-98a8-4f79-84c3-3c23a6132500; pxro=1; optimizelyEndUserId=oeu1391780444360r0.5851539506111294; optimizelyBuckets=%7B%7D; accs=o; dssid2=d901a1a7-eb5e-4121-bfbe-05b94185c51d; dssf=1; optimizelySegments=%7B%22341793217%22%3A%22referral%22%2C%22341794206%22%3A%22false%22%2C%22341824156%22%3A%22gc%22%2C%22341932127%22%3A%22none%22%7D; s_invisit_n2_hk=35; s_vnum_n2_hk=3%7C6%2C0%7C3%2C26%7C1%2C21%7C1%2C35%7C1; SRVNAME=c48; s_vnum_n2_jp=0%7C8; s_invisit_n2_au=0; s_vnum_n2_au=0%7C13; s_invisit_n2_uk=0; s_vnum_n2_uk=0%7C1; JSESSIONID=C7FE89294CB7F8F99E68E809EE29DED2; dslang=AU-EN; ds01_a=b9a24a88031487583626483fcd6d70eff9a43152336e3c3059c0a1d6442edb56e076d485bf61d4d3b5b6dc3eb007e421fc05e3a663f7ed0c95e1c445202b8ee30465aefdb890c44edb063791fe956ae1b67dbec4f67768ff7528eadcc0261d8dGZVX; myacinfo=DAWTKNV2001267SZZK4dab26d1df3b542e76d0224a73c2585018960f360b2f35c669a3c60a4714efb999b0687e0f7884845a403acc8816ec19a7e26948f41d7a0ed9416507fd07aebc2a35f123cfa239b97c95f5069579422e9dd33257ce1d307d6cf7db18189178244f62c5108689613cafb065b604d39f001239d5e0e6026ee2f761c848904996f6beb71560f9a780d464767dbe3692f101388c846948329edcb635b416b87470206801f81f0cd92d0145eed6a4fa976f9ed51e31f384f20102ad1a7bfc07d156d09b81549b8009740f4206a14e671da4878289fd2f0b492a7e5090e507708a7de8b3a629493edb08711eebb1051b668d16272b52bbdebd0661c238c4406bb0d497MVRYV2; s_vnum_n2_us=0|1; s_cc=true; s_orientation=%5B%5BB%5D%5D; s_pathLength=ireserve%3D3%2Ciphone.tab%2Bother%3D1%2Ciphone%3D1%2C; s_sq=%5B%5BB%5D%5D; s_vi=[CS]v1|2A0A48308501365D-60000112C0034B9E[CE]; s_ppv=ireserve%2520-%2520product%2520selection%2520%2528au%2529%2C72%2C37%2C1642%2C100%3A4%7C200%3A4%7C300%3A6%7C400%3A8%7C500%3A10%7C600%3A10%7C700%3A6%7C800%3A10%7C900%3A10%7C1000%3A6%7C1100%3A4%7C1200%3A4%7C1300%3A4%7C1400%3A4%7C1500%3A1%7C1600%3A1%7C1700%3A1; s_orientationHeight=1360; arp_scroll_position=460; s_fid=43D0E8D34DDFB286-24825C1499A97235
+
+//FORM DATA
+ajaxSource=true&_eventId=availability&storeNumber=R466&partNumbers=MG482X%2FA%2CMG4C2X%2FA%2CMG4H2X%2FA&selectedContractType=CONTRACT&p_ie=74c2f538-02d9-49bf-9d5d-e0058a266b31

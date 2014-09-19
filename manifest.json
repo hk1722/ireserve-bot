@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "iReserve by DW",
+  "description": "Auto run in iReserve page",
+  "version": "1.0",
+  "icons": { "128": "icon128.png" },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["jquery1.11.0.js", "ireserve.js"],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -8,11 +8,11 @@
 	//Select Color Priority: 1 = CWB, 2 = FW, 3 = IFC
 	var shopPriority = [1,3,2];
 	//User Information
-	var firstname = "Kwan Yat";
-	var lastname = "Wong";
-	var email = "daywong1119@gmail.com";
-	var phone = "61780236";
-	var govId = "R1512012";
+	var firstname = "";
+	var lastname = "";
+	var email = "";
+	var phone = "";
+	var govId = "";
 
 	/* Global variables */
 	var mainProcess;

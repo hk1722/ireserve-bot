@@ -2,11 +2,11 @@
 	//iPhoneModel 1 : iPhone 6 Plus
 	var iphoneModel = 1
 	//capacity = [16G, 64G, 128G]
-	var capacity = [0,0,1]
+	var capacity = [1,1,1]
 	//Select Color Priority: 0 = Silver, 1 = Gold, 2 = Space Grey
 	var colorPos = [1,0,2];
 	//Select Color Priority: 1 = CWB, 2 = FW, 3 = IFC
-	var shopPriority = [1,3,2];
+	var shopPriority = [2,3,1];
 
 	/* Global variables */
 	var mainProcess;
@@ -14,36 +14,51 @@
 	
 	var store_hash = {};
 
-	$.ajax({
-		url:"availability.json",     
-		dataType:"json",
-		success:function(data){
+	function updateStoreHash() {
 
-        	console.log(data.R120);
-        	$("#text1").append("Updated at: "+data.updated+"<br>");
-			
-			$.each(data, function (storeId, store_value) {
-				var product_hash = {};
-				$.each(store_value,function(productNo,value){
-					product_hash[productNo] = value;
-					/*
-					if (value == false) {
-						$("#text1").append(productConvertor(productNo)+": "+"false"+"<br>");
-					}else{
-						$("#text1").append(productConvertor(productNo)+": "+"true"+"<br>");
-					}
-					*/
+		$.ajax({
+			url:"https://reserve.cdn-apple.com/HK/en_HK/reserve/iPhone/availability.json",     
+			dataType:"json",
+			success:function(data){
+
+				$("#text1").append("Updated at: "+data.updated+"<br>");
+				storeOpened = false;
+				
+				$.each(data, function (storeId, store_value) {
+					var product_hash = {};
+					$.each(store_value,function(productNo,value){
+						product_hash[productNo] = value;
+						/*
+						if (value == false) {
+							$("#text1").append(productConvertor(productNo)+": "+"false"+"<br>");
+						}else{
+							$("#text1").append(productConvertor(productNo)+": "+"true"+"<br>");
+						}
+						*/
+						storeOpened = storeOpened || value;
+					});
+					store_hash[storeId] = product_hash;
 				});
-				store_hash[storeId] = product_hash
-			});
-        },  
+
+				if(storeOpened) { 
+					loadReservePage();
+					clearInterval(monitorStore);
+				}
+			},  
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-        	console.log("");                   
-        }
-		// To use hashmap: var value = store_hash['storeId']['productNo'] <== true / false;
-    });
+				console.log("");                   
+			}
+			// To use hashmap: var value = store_hash['storeId']['productNo'] <== true / false;
+		});
+	}
 	
-	
+	function loadReservePage() {
+		var currentUrl = document.URL;
+		if(currentUrl.indexOf("apple.com") === -1) {
+			window.open("https://reserve-hk.apple.com/HK/zh_HK/reserve/iPhone");
+		}
+	}
+
 	// R428 = IFC
     // R409 = CWB
     // R485 = KLN
@@ -78,9 +93,9 @@
 			$("#productSelection li select[name='selectedStoreNumber']").each(function(index){
 			   codeInjector("$('#productSelection li select[name=\"selectedStoreNumber\"]').val('" + shops[shopPriority[shopIdx]] + "').trigger('change')");
 			})
-			return true
+			return true;
 		}else{
-			return false
+			return false;
 		}
 	}
 	
@@ -88,9 +103,9 @@
 		var disabled = $("#productSelection #product").closest("li").hasClass("disabled");
 		if(!disabled){		
 			   codeInjector("$('#productSelection #product ul li:eq(" + iphoneModel + ") input').click()");
-			return true
+			return true;
 		}else{
-			return false
+			return false;
 		}
 	}
 	
@@ -115,14 +130,14 @@
 				})
 				codeInjector("$('#productSelection #color input:eq(\""+colorIndexing[colorPos[i]]+"\")').click()");
 				i++;
-				return true
+				return true;
 			}else{
-				return false
+				return false;
 			}
 		}else{
 			i = 0;
 			rollback(3);
-			return false
+			return false;
 		}
 	}
 
@@ -136,12 +151,12 @@
 				if( $(this).attr("disabled") == undefined && capacity[i] == 1 ){
 					$(this).click().trigger('change');
 					modelSelected = 2;
-					return false
+					return false;
 				}
 			})
 			return modelSelected
 		}else{
-			return 0
+			return 0;
 		}
 	}
 	function setQuan(){
@@ -150,9 +165,9 @@
 			$("#productSelection li select[name='selectedQuantity']").each(function(index){
 				$(this).val("2").trigger('change');
 			})
-			return true
+			return true;
 		}else{
-			return false
+			return false;
 		}
 	}
 
@@ -161,7 +176,7 @@
 		$("#productSelection #contact input[name='lastName']").val( lastname ).trigger('change');
 		$("#productSelection #contact input[name='email']").val( email ).trigger('change');
 		codeInjector("$('#productSelection #contact input[name=\"phoneNumber\"]').val('" + phone + "').trigger('change').click()");
-		return true
+		return true;
 	}
 	
 	function setGovId() {
@@ -195,9 +210,9 @@
 				timeslot[index] = $(this).val();
 			})
 			codeInjector("$('#productSelection li select[name=\"selectedTimeSlotId\"]\').each(function(index){ $(this).val('"+timeslot[9]+"').trigger('change') })");
-			return true
+			return true;
 		}else{
-			return false
+			return false;
 		}
 	}
 	
@@ -295,19 +310,36 @@
 	}
 	
 	function bootup(){
+		// login page (iReserve style)
+		$("input#accountname").val(login).trigger('change');
+		$("input#accountpassword").val(password).trigger('change');
+		$("input#phoneNumber").val(phone).trigger('change');
+
+		if($("input#reservationCode").length > 0) {
+			codeInjector("$('input#reservationCode').val('" + reserveCode + "').trigger('keyup').trigger('change').click()");
+			$("#button").click();
+		}
+
+		// login page (aos style)
+		$("login-appleId").val(login).trigger('change');
+		$("login-password").val(password).trigger('change');
+
 		if($(".loading-container:visible").length == 0){
 			if($("#productSelection").length > 0 && $("#productSelection").attr("method") == "post"){
 				mainProcess = setInterval(function(){mainThread()},500);
 			}
-			return true
+			return true;
 		}
-		return false
+		return false;
 	}
 	
 	var bootstrap = setInterval(function(){
+
 		var started = bootup();
 		if(started)
 			clearInterval(bootstrap);
 		else
 			console.log('waiting for the website...');
 	},500);
+
+	var monitorStore = setInterval(updateStoreHash, 2000);
